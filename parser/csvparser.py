@@ -13,9 +13,8 @@ class CSVParser:
         nsglist = NSGList()
         with open(self.filename) as csvFile:
             reader = csv.DictReader(csvFile)
-            rule = SecurityRule()
             for row in reader:
-                rule = rule.createFromOrderedDict(row)
+                rule = SecurityRule().createFromOrderedDict(row)
                 nsglist.addToDict(rule)
                 #print(rule)
         
