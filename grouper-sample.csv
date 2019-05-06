@@ -1,0 +1,5 @@
+location,nsgname,rulename,description,protocol,sourcePortRange,destinationPortRange,sourceAddressPrefix,destinationAddressPrefix,access,priority,direction,sourcePortRanges,destinationPortRanges,sourceAddressPrefixes,destinationAddressPrefixes
+eastus,win10vm1nsg744,Port_3389,description,TCP,*,3389,*,*,Allow,100,Inbound,[],[],[],[]
+eastus,win10vm1nsg744,Port_80,description,TCP,*,80,*,*,Allow,200,Inbound,[],[],[],[]
+eastus,testNSG,Port_8080,description,TCP,*,8080,*,*,Allow,200,Inbound,[],[],[],[]
+westcentral,myNSG,Port_443,description,TCP,*,443,*,*,Allow,200,Inbound,[],[],[],[]
