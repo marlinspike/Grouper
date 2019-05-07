@@ -3,6 +3,7 @@ from network.securitygroup.securityrule import SecurityRule
 from parser.csvparser import CSVParser
 from network.securitygroup.nsglist import NSGList
 from parser.armwriter import ARMWriter
+from prefs import utils
 import os
 import sys
 from prettytable import PrettyTable
@@ -13,12 +14,16 @@ from prefs.prefs import Preferences
 @click.option('--datafile', default="grouper-sample.csv", help='CSV data file to use')
 @click.option('--genfile/--nogen', default=False, help='True/False. Generate sample preferences json file')
 def doIt(datafile, genfile):
+
     prefs = Preferences()
+    
     os_path = os.path.abspath(os.path.dirname(__file__))
     
     if(genfile == True):
-        prefs.generateSampleDataFile(os_path)
-        print(f"Sample data file generated! You can customize it, or generate templates based on the sample data.")
+        if(utils.generateSampleDataFile(os_path)):
+            print(f"Sample data file generated! You can customize it, or generate templates based on the sample data.")
+        else:
+            print("Aborted writing file template.")
         sys.exit(200)
 
     
