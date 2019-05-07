@@ -11,19 +11,28 @@ class SecurityRule:
         self.access = ""
         self.priority = ""
         self.direction = ""
+        self.sourcePortRange = ""
+        self.sourceAddressPrefix = ""
+        self.destinationAddressPrefix = ""
+        self.destinationPortRange = ""
         self.sourcePortRanges = []
         self.destinationPortRanges = []
         self.sourceAddressPrefixes = []
         self.destinationAddressPrefixes = []
     
-    def populateAttributes(self, location, nsgname, rulename, description, protocol, sourcePortRanges, destinationPortRanges, sourceAddressPrefixes, destinationAddressPrefixes, access, priority, direction):
+    def populateAttributes(self, location, nsgname, rulename, description, protocol, sourcePortRange, destinationPortRange, sourcePortRanges, destinationPortRanges, 
+    sourceAddressPrefix, sourceAddressPrefixes, destinationAddressPrefix, destinationAddressPrefixes, access, priority, direction):
         self.location = location
         self.nsgname = nsgname
         self.rulename = rulename
         self.description = description
         self.protocol = protocol
+        self.sourcePortRange = sourcePortRange
+        self.destinationPortRange = destinationPortRange
         self.sourcePortRanges = sourcePortRanges
         self.destinationPortRanges = destinationPortRanges
+        self.sourceAddressPrefix = sourceAddressPrefix
+        self.destinationAddressPrefix = destinationAddressPrefix
         self.sourceAddressPrefixes = sourceAddressPrefixes
         self.destinationAddressPrefixes = destinationAddressPrefixes
         self.access = access
@@ -55,8 +64,8 @@ class SecurityRule:
     @classmethod
     def createFromDeepCopy(self, obj:'SecurityRule') -> 'SecurityRule':
         rule = SecurityRule()
-        rule.populateAttributes(obj.location, obj.nsgname, obj.rulename, obj.description, obj.protocol, obj.sourcePortRanges, obj.destinationPortRanges,
-            obj.sourceAddressPrefixes, obj.destinationAddressPrefixes, obj.access, obj.priority, obj.direction)
+        rule.populateAttributes(obj.location, obj.nsgname, obj.rulename, obj.description, obj.protocol, obj.sourcePortRange, obj.destinationPortRange, obj.sourcePortRanges, obj.destinationPortRanges,
+            obj.sourceAddressPrefix, obj.sourceAddressPrefixes, obj.destinationAddressPrefix, obj.destinationAddressPrefixes, obj.access, obj.priority, obj.direction)
         return rule
 
 

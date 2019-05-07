@@ -6,6 +6,7 @@ from collections import defaultdict
 class NSGList:
     def __init__(self):
         self.nsgDict = defaultdict(list)
+        self.separator = ","
 
     ###
     # Adds a SecurityRule object to the defaultdict collection

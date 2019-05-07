@@ -16,11 +16,9 @@
             "location": "eastus",
             "properties": {
                 "provisioningState": "Succeeded",
-                "resourceGuid": "68de2b61-c74c-499c-9b64-0cbef5de9fd6",
                 "securityRules": [
                     {
                         "name": "Port_3389",
-                        "etag": "W/\"48de5afb-4e0e-4d9f-a770-fc4be068b2b1\"",
                         "properties": {
                             "provisioningState": "Succeeded",
                             "protocol": "TCP",
@@ -39,7 +37,6 @@
                     },
                     {
                         "name": "Port-Shitty",
-                        "etag": "W/\"48de5afb-4e0e-4d9f-a770-fc4be068b2b1\"",
                         "properties": {
                             "provisioningState": "Succeeded",
                             "protocol": "TCP",
