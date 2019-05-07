@@ -1,0 +1,14 @@
+{
+    "ignore_priority" : "65000, 65001, 65500",
+    "sample_data_file": [
+    "resource_group,location,nsgname,rulename,description,protocol,sourcePortRange,destinationPortRange,sourceAddressPrefix,destinationAddressPrefix,access,priority,direction,sourcePortRanges,destinationPortRanges,sourceAddressPrefixes,destinationAddressPrefixes",
+    "dev,eastus,win10vm1nsg744,Port_3389,description,TCP,*,3389,*,*,Allow,100,Inbound,[],[],[],[]",
+    "dev,eastus,win10vm1nsg744,Port_443,description,TCP,*,443,*,*,Allow,150,Inbound,[],[],[],[]",
+    "dev,eastus,win10vm1nsg744,Port_80,description,TCP,*,80,*,*,Allow,200,Inbound,[],[],[],[]",
+    "dev,eastus,win10vm1nsg744,Port_22,description,TCP,*,22,*,*,Allow,250,Outbound,[],[],[],[]",
+    "dev,eastus,testNSG,Port_8080,description,TCP,*,8080,*,*,Allow,200,Inbound,[],[],[],[]",
+    "dev,westus,myNSG,Port_443,description,TCP,*,443,*,*,Allow,200,Inbound,[],[],[],[]",
+    "dev,southasia,southAsiaNSG,Port_443,description,TCP,*,443,*,*,Allow,200,Inbound,[],[],[],[]"
+    ]
+
+}
