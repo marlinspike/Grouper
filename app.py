@@ -7,8 +7,6 @@ import os
 import sys
 from prefs.prefs import Preferences
 
-#from network.networksecuritygroups.securityrule import SecurityRule
-#import network.networksecuritygroups.securityrule.SecurityRule
 
 @click.command()
 @click.option('--datafile', default="grouper-sample.csv", help='CSV data file to use')
@@ -33,7 +31,7 @@ def doIt(datafile, genfile):
             print(f"Error: There was an issue reading in the data file {datafile}.\n\nPlease use the --genfile option to generate a sample data file to customize.")
             sys.exit(200)
 
-    parser = CSVParser(grouper_file) #"/Users/reuben/code/python/Grouper/grouper-sample.csv")
+    parser = CSVParser(grouper_file)
     nsglist = parser.doCSVParse()
     print(nsglist.nsg_rg_lookup)
 
