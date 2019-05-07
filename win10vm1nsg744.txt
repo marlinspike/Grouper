@@ -13,7 +13,7 @@
             "type": "Microsoft.Network/networkSecurityGroups",
             "apiVersion": "2018-12-01",
             "name": "win10vm1nsg744",
-            "location": "westus",
+            "location": "eastus",
             "properties": {
                 "securityRules": [
 
@@ -36,6 +36,24 @@
                     }
                     ,
                     {
+                        "name": "Port_443",
+                        "properties": {
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 150,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    }
+                    ,
+                    {
                         "name": "Port_80",
                         "properties": {
                             "protocol": "TCP",
@@ -46,6 +64,24 @@
                             "access": "Allow",
                             "priority": 200,
                             "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    }
+                    ,
+                    {
+                        "name": "Port_22",
+                        "properties": {
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "22",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 250,
+                            "direction": "Outbound",
                             "sourcePortRanges": [],
                             "destinationPortRanges": [],
                             "sourceAddressPrefixes": [],

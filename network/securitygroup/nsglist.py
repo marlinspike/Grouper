@@ -6,6 +6,7 @@ from collections import defaultdict
 class NSGList:
     def __init__(self):
         self.nsgDict = defaultdict(list)
+        self.nsg_rg_lookup = {} #Maps NSG to a Resource Group
         self.separator = ","
 
     ###
@@ -24,15 +25,20 @@ class NSGList:
         
         return lst_NSG
 
-     # ToString for this object
+    ###
+    # ToString for this object
+    # Returns str
     def __str__(self) -> str:
         return self.nsgDict.__str__()
     
 
     ###
-    #Prints out the NSGList for debug
-    def printDebug(self):
+    # Gets the NSGList for debug
+    # Returns str
+    def getDebug(self) -> str:
+        s = ""
         for key, val in self.nsgDict.items():
             print(key)
             for l in val:
-                print(l)
+                s += l.__str__() + "\n"
+        return s

@@ -17,12 +17,10 @@ def doIt(csv, prefs, genpref):
     print("--------")
     parser = CSVParser("/Users/reuben/code/python/Grouper/grouper-sample.csv")
     nsglist = parser.doCSVParse()
-    print(nsglist)
-    nsglist.printDebug()
+    print(nsglist.nsg_rg_lookup)
 
     armWriter = ARMWriter()
     arm_template = armWriter.doBuild_Nsg_Template(nsglist.nsgDict)
-    print(arm_template)
     armWriter.doWrite_ARMTemplate(arm_template)
 
 doIt()

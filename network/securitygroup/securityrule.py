@@ -1,7 +1,7 @@
 from collections import OrderedDict
+import copy
 
 class SecurityRule:
-    #location,nsgname,rulename,description,protocol,sourcePortRange,destinationPortRange,sourceAddressPrefix,destinationAddressPrefix,access,priority,direction,sourcePortRanges,destinationPortRanges,sourceAddressPrefixes,destinationAddressPrefixes
     def __init__(self):
         self.location = ""
         self.nsgname = ""
@@ -20,24 +20,25 @@ class SecurityRule:
         self.sourceAddressPrefixes = []
         self.destinationAddressPrefixes = []
     
-    def populateAttributes(self, location, nsgname, rulename, description, protocol, sourcePortRange, destinationPortRange, sourcePortRanges, destinationPortRanges, 
-    sourceAddressPrefix, sourceAddressPrefixes, destinationAddressPrefix, destinationAddressPrefixes, access, priority, direction):
-        self.location = location
-        self.nsgname = nsgname
-        self.rulename = rulename
-        self.description = description
-        self.protocol = protocol
-        self.sourcePortRange = sourcePortRange
-        self.destinationPortRange = destinationPortRange
-        self.sourcePortRanges = sourcePortRanges
-        self.destinationPortRanges = destinationPortRanges
-        self.sourceAddressPrefix = sourceAddressPrefix
-        self.destinationAddressPrefix = destinationAddressPrefix
-        self.sourceAddressPrefixes = sourceAddressPrefixes
-        self.destinationAddressPrefixes = destinationAddressPrefixes
-        self.access = access
-        self.priority = priority
-        self.direction = direction
+    ###
+    # Populates attributes in the current object, given another SecurityRule object
+    def populateAttributes(self, obj:'SecurityRule'):
+        self.location = getattr(obj,"location")
+        self.nsgname = getattr(obj, "nsgname")
+        self.rulename = getattr(obj, "rulename")
+        self.description = getattr(obj, "description")
+        self.protocol = getattr(obj, "protocol")
+        self.sourcePortRange = getattr(obj, "sourcePortRange")
+        self.destinationPortRange = getattr(obj, "destinationPortRange")
+        self.sourcePortRanges = getattr(obj, "sourcePortRanges")
+        self.destinationPortRanges = getattr(obj, "destinationPortRanges")
+        self.sourceAddressPrefix = getattr(obj, "sourceAddressPrefix")
+        self.destinationAddressPrefix = getattr(obj, "destinationAddressPrefix")
+        self.sourceAddressPrefixes = getattr(obj, "sourceAddressPrefixes")
+        self.destinationAddressPrefixes = getattr(obj, "destinationAddressPrefixes")
+        self.access = getattr(obj, "access")
+        self.priority = getattr(obj, "priority")
+        self.direction = getattr(obj, "direction")
 
     #Create an instance of this class given a dictionary of attribute/value pairs
     def createFromDict(self, **kwargs) -> 'SecurityRule':
@@ -50,7 +51,9 @@ class SecurityRule:
         #return SecurityRule(self.location, self.nsgname, self.rulename, self.description, self.protocol, self.sourcePortRange, self.destinationPortRange,
             #self.sourceAddressPrefix, self.destinationAddressPrefix, self.access, self.priority, self.direction)
 
-#Create an instance of this class given an OrderedDict object
+    ###
+    # Create an instance of this class given an OrderedDict object
+    # Returns: SecurityRule based on the OrderedDict passed
     def createFromOrderedDict(self, OrderedDict) -> 'SecurityRule':
         lst_attributes = self._get_attribute_list()
         #self.description, self.protocol = [kwargs.get(k) for k in lst_attributes]
@@ -60,18 +63,21 @@ class SecurityRule:
         return self.createFromDeepCopy(self)
     
     ###
-    #Creates and returns a DeepCopy() SecurityRule object based on the one passed
+    # Creates and returns a DeepCopy() SecurityRule object based on the one passed
+    # Returns: SecurityRule based on the SecurityRule object passed
     @classmethod
     def createFromDeepCopy(self, obj:'SecurityRule') -> 'SecurityRule':
         rule = SecurityRule()
-        rule.populateAttributes(obj.location, obj.nsgname, obj.rulename, obj.description, obj.protocol, obj.sourcePortRange, obj.destinationPortRange, obj.sourcePortRanges, obj.destinationPortRanges,
-            obj.sourceAddressPrefix, obj.sourceAddressPrefixes, obj.destinationAddressPrefix, obj.destinationAddressPrefixes, obj.access, obj.priority, obj.direction)
+        
+        rule.populateAttributes(obj)
         return rule
 
 
 
+    ###
     # ToString for this object
-    def __str__(self):
+    # Returns string representation of this object
+    def __str__(self) -> str:
         val_dict = self._get_attribute_value_dictionary()
         lst = []
 
@@ -80,14 +86,16 @@ class SecurityRule:
         return ','.join(lst)
     
     ###
-    # Returns a list containing all the attributes of this class
+    # Gets list containing all the attributes of this class
+    # Returns list of attributes of this object
     ###
     def _get_attribute_list(self) -> list:
         self_vars = [a for a in dir(self) if not a.startswith('__') and not callable(getattr(self,a))]
         return self_vars
 
     ###
-    # Returns a dictionary with attribute name and value
+    # Gets a dictionary with attribute name and value
+    # Returns dict
     ###
     def _get_attribute_value_dictionary(self) -> dict:
         #s = locals()["self"]

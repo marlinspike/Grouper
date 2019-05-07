@@ -75,7 +75,7 @@ class ARMWriter:
             
                 NSGRuleTemplate = NSGRuleTemplate + '\n' + RuleTemplate
 
-        #Insert RuleTemplate into NSGTemplate
+            #Insert RuleTemplate into NSGTemplate
             NsgTemplate = NsgTemplate.replace("%__NSGRULE__%", NSGRuleTemplate)
             
             file_dict[key] = NsgTemplate
