@@ -6,10 +6,10 @@ prefs = Preferences()
 ###
 # Generates a sample data file to use
 def generateSampleDataFile(path) -> bool:
-    grouper_file = os.path.join(path, "grouper-sample.csv")
+    grouper_file = os.path.join(path, prefs.SAMPLE_DATA_FILE_NAME)
     file_exists = os.path.isfile(grouper_file)
     overwrite_file:str = "n"
-    sample_data_file = prefs.load_prefs('sample_data_file')
+    sample_data_file = prefs.load_prefs(prefs.PREFS_SAMPLE_DATA_CONTENTS)
     isFileWritten = False
 
 

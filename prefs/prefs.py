@@ -9,6 +9,8 @@ class Preferences:
         self.lst_ignore_priority = []; [65000, 65001, 65500] #Reserved numbers in Azure. Do not reuse
         self.lst_ignore_priority = self.load_prefs('ignore_priority').split(",")
         self.sample_file = ""
+        self.SAMPLE_DATA_FILE_NAME = "grouper-sample.csv"
+        self.PREFS_SAMPLE_DATA_CONTENTS = "sample_data_contents"
     
     ###
     # Loads preferences
