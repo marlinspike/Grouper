@@ -4,5 +4,5 @@ dev,eastus,win10vm1nsg744,Port_443,description,TCP,*,443,*,*,Allow,150,Inbound,[
 dev,eastus,win10vm1nsg744,Port_80,description,TCP,*,80,*,*,Allow,200,Inbound,[],[],[],[]
 dev,eastus,win10vm1nsg744,Port_22,description,TCP,*,22,*,*,Allow,250,Outbound,[],[],[],[]
 dev,eastus,testNSG,Port_8080,description,TCP,*,8080,*,*,Allow,200,Inbound,[],[],[],[]
-dev,westus,myNSG,Port_443,description,TCP,*,443,*,*,Allow,200,Inbound,[],[],[],[]
-dev,southasia,southAsiaNSG,Port_443,description,TCP,*,443,*,*,Allow,200,Inbound,[],[],[],[]
+devwest,westus,myNSG,Port_443,description,TCP,*,443,*,*,Allow,200,Inbound,[],[],[],[]
+desa,southasia,southAsiaNSG,Port_443,description,TCP,*,443,*,*,Allow,200,Inbound,[],[],[],[]
