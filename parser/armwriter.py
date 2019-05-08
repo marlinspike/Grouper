@@ -1,3 +1,12 @@
+'''
+    File name: armwriter.py
+    Author/Maintainer: Reuben Cleetus
+    email:reuben@cleet.us
+    Copyright: 2019
+    License: GPL 3.0
+    Date last modified: 5/8/2019
+    Python Version:3.7
+'''
 from network.securitygroup.nsglist import NSGList
 from network.securitygroup.securityrule import SecurityRule
 from pathlib import Path

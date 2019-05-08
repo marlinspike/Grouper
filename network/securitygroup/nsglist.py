@@ -1,5 +1,21 @@
+'''
+    File name: app.py
+    Author/Maintainer: Reuben Cleetus
+    email:reuben@cleet.us
+    Copyright: 2019
+    License: GPL 3.0
+    Date last modified: 5/8/2019
+    Python Version:3.7
+'''
 from network.securitygroup.securityrule import SecurityRule
 from collections import defaultdict
+__author__ = "Reuben Cleetus"
+__copyright__ = "Copyright 2019"
+__license__ = "GPL"
+__version__ = "3.0"
+__maintainer__ = "Reuben Cleetus"
+__email__ = "reuben@cleet.us"
+__status__ = "Production"
 
 ###
 #Represents a list of NSGs, each of which has zero or many SecurityRules
