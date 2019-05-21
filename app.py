@@ -26,12 +26,16 @@ import os
 import sys
 from prettytable import PrettyTable
 from prefs.prefs import Preferences
-
+from progress.bar import ShadyBar
+import time
+from timeit import default_timer as timer
+from decimal import Decimal
 
 @click.command()
 @click.option('--datafile', default="grouper-sample.csv", help='CSV data file to use')
 @click.option('--genfile/--nogen', default=False, help='True/False. Generate sample preferences json file')
 def doIt(datafile, genfile):
+    start = timer()
 
     prefs = Preferences()
     
@@ -55,16 +59,13 @@ def doIt(datafile, genfile):
     parser = CSVParser(grouper_file)
     nsglist = parser.doCSVParse()
 
-
     armWriter = ARMWriter()
     arm_template = armWriter.doBuild_Nsg_Template(nsglist.nsgDict)
     armWriter.doWrite_ARMTemplate(arm_template)
 
-    table = PrettyTable(['NSG Name', 'Resource Group', 'Rules'])
-    for key, val in nsglist.nsg_rg_lookup.items():
-        num_rules = len(nsglist.nsgDict[key])
-        table.add_row([key, val, num_rules])
-    print(table)
+    end = timer()
+    print(f"\nCompleted in {round(Decimal(end - start),5) } milliseconds.")
 
+    utils.printOutputTable(nsglist)
 
 doIt()

@@ -1,5 +1,6 @@
 {
     "ignore_priority" : "65000, 65001, 65500",
+    "grouper_version":"0.90",
     "sample_data_contents": [
     "resource_group,location,nsgname,rulename,description,protocol,sourcePortRange,destinationPortRange,sourceAddressPrefix,destinationAddressPrefix,access,priority,direction,sourcePortRanges,destinationPortRanges,sourceAddressPrefixes,destinationAddressPrefixes",
     "dev,eastus,win10vm1nsg744,Port_3389,description,TCP,*,3389,*,*,Allow,100,Inbound,[],[],[],[]",

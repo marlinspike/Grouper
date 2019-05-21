@@ -10,6 +10,10 @@
 
 from prefs.prefs import Preferences
 import os
+from prettytable import PrettyTable
+from timeit import default_timer as timer
+from decimal import Decimal
+from network.securitygroup.nsglist import NSGList
 
 prefs = Preferences()
 
@@ -36,3 +40,19 @@ def generateSampleDataFile(path) -> bool:
     isFileWritten = True
 
     return isFileWritten
+
+
+###
+# Prints output based on the NSGList passed
+def printOutputTable(nsglist:NSGList):
+    pref = Preferences()
+    version = pref.load_prefs("grouper_version")
+    version = "<unknown>" if len(version.strip()) == 0 else version
+    table = PrettyTable(['NSG Name', 'Resource Group', 'Rules'])
+    table.title = f"Grouper v{version}"
+    table.align['NSG Name'] = "l"
+    table.align['Resource Group'] = "l"
+    for key, val in nsglist.nsg_rg_lookup.items():
+        num_rules = len(nsglist.nsgDict[key])
+        table.add_row([key, val, num_rules])
+    print(f"\n\n{table}\n")
