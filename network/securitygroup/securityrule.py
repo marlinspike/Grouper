@@ -12,6 +12,7 @@ import copy
 
 class SecurityRule:
     def __init__(self):
+        self.resourceGroup = ""
         self.location = ""
         self.nsgname = ""
         self.rulename = ""
@@ -28,10 +29,12 @@ class SecurityRule:
         self.destinationPortRanges = []
         self.sourceAddressPrefixes = []
         self.destinationAddressPrefixes = []
+
     
     ###
     # Populates attributes in the current object, given another SecurityRule object
     def populateAttributes(self, obj:'SecurityRule'):
+        self.resourceGroup = getattr(obj,"resourceGroup")
         self.location = getattr(obj,"location")
         self.nsgname = getattr(obj, "nsgname")
         self.rulename = getattr(obj, "rulename")
@@ -48,6 +51,11 @@ class SecurityRule:
         self.access = getattr(obj, "access")
         self.priority = getattr(obj, "priority")
         self.direction = getattr(obj, "direction")
+
+    ###
+    # Returns an AttrValDict
+    def toDict(self) -> {}:
+        return self._get_attribute_value_dictionary()
 
     #Create an instance of this class given a dictionary of attribute/value pairs
     def createFromDict(self, **kwargs) -> 'SecurityRule':
@@ -68,6 +76,19 @@ class SecurityRule:
         #self.description, self.protocol = [kwargs.get(k) for k in lst_attributes]
         for attribute in lst_attributes:
             self.__setattr__(attribute, OrderedDict[attribute])
+        
+        return self.createFromDeepCopy(self)
+
+
+
+    ###
+    # Create an instance of this class given an JSON object containing the necessary params
+    # Returns: SecurityRule based on the JSON Object passed
+    def createFromJson(self, JsonRule) -> 'SecurityRule':
+        lst_attributes = self._get_attribute_list()
+        #self.description, self.protocol = [kwargs.get(k) for k in lst_attributes]
+        for attribute in lst_attributes:
+            self.__setattr__(attribute, JsonRule[attribute])
         
         return self.createFromDeepCopy(self)
     

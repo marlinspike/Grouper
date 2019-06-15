@@ -30,11 +30,14 @@ from progress.bar import ShadyBar
 import time
 from timeit import default_timer as timer
 from decimal import Decimal
+from parser.jsonParser import JSONParser
 
 @click.command()
-@click.option('--datafile', default="grouper-sample.csv", help='CSV data file to use')
-@click.option('--genfile/--nogen', default=False, help='True/False. Generate sample preferences json file')
-def doIt(datafile, genfile):
+@click.option('--datafile', default="", help='CSV data file to use')
+@click.option('--build', default=True, help='Build Mode: (True/False) Grouper attempts to build a CSV File from your NSG Rules')
+@click.option('--buildfile', default="grouper.csv", help='Build Mode: Name the CSV File that Grouper will build from your NSG Rules')
+@click.option('--genfile/--nogen', default=False, help='(True/False) Generate sample preferences json file')
+def doIt(datafile, build, buildfile, genfile):
     start = timer()
 
     prefs = Preferences()
@@ -48,24 +51,30 @@ def doIt(datafile, genfile):
             print("Aborted writing file template.")
         sys.exit(200)
 
+    # Build NSG list from AzCLI Json doc
+    if(build == True):
+        nsglist = JSONParser().parseJson()
+        grouper_file = os.path.join(os_path, 'Grouper.csv')
+        CSVParser('Grouper.csv').writeCSVFromNSGList(nsglist, os_path)
+        utils.printOutputTable(nsglist)
     
-    
-    grouper_file = os.path.join(os_path, datafile)
-    file_exists = os.path.isfile(grouper_file)
-    if(file_exists == False):
-            print(f"Error: There was an issue reading in the data file {datafile}.\n\nPlease use the --genfile option to generate a sample data file to customize.")
-            sys.exit(200)
+    #Parse datafile if provided
+    if(len(datafile) > 0):
+        grouper_file = os.path.join(os_path, datafile)
+        file_exists = os.path.isfile(grouper_file)
+        if(file_exists == False):
+                print(f"Error: There was an issue reading in the data file {datafile}.\n\nPlease use the --genfile option to generate a sample data file to customize.")
+                sys.exit(200)
 
-    parser = CSVParser(grouper_file)
-    nsglist = parser.doCSVParse()
+        parser = CSVParser(grouper_file)
+        nsglist = parser.doCSVParse()
 
-    armWriter = ARMWriter()
-    arm_template = armWriter.doBuild_Nsg_Template(nsglist.nsgDict)
-    armWriter.doWrite_ARMTemplate(arm_template)
+        armWriter = ARMWriter()
+        arm_template = armWriter.doBuild_Nsg_Template(nsglist.nsgDict)
+        armWriter.doWrite_ARMTemplate(arm_template)
+
+        utils.printOutputTable(nsglist)
 
     end = timer()
     print(f"\nCompleted in {round(Decimal(end - start),5) } milliseconds.")
-
-    utils.printOutputTable(nsglist)
-
 doIt()

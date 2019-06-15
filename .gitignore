@@ -124,3 +124,6 @@ dmypy.json
 
 #Mac
 .DS_Store
+
+#Grouper
+Grouper.csv
