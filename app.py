@@ -38,10 +38,9 @@ from parser.jsonParser import JSONParser
 @click.option('--buildfile', default="grouper.csv", help='Build Mode: Name the CSV File that Grouper will build from your NSG Rules')
 @click.option('--genfile/--nogen', default=False, help='(True/False) Generate sample preferences json file')
 def doIt(datafile, build, buildfile, genfile):
-    start = timer()
+    utils.Timed()
 
     prefs = Preferences()
-    
     os_path = os.path.abspath(os.path.dirname(__file__))
     
     if(genfile == True):
@@ -53,10 +52,17 @@ def doIt(datafile, build, buildfile, genfile):
 
     # Build NSG list from AzCLI Json doc
     if(build == True):
-        nsglist = JSONParser().parseJson()
-        grouper_file = os.path.join(os_path, 'Grouper.csv')
-        CSVParser('Grouper.csv').writeCSVFromNSGList(nsglist, os_path)
-        utils.printOutputTable(nsglist)
+        try:
+            Az = JSONParser().parseAzureAccountJson()
+            print(f"Importing NSGs from Azure:\nAccount: {Az['name']}\nEnvironment: {Az['environmentName']}")
+            nsglist = JSONParser().parseJson()
+            grouper_file = os.path.join(os_path, 'Grouper.csv')
+            CSVParser('Grouper.csv').writeCSVFromNSGList(nsglist, os_path)
+            utils.printOutputTable(nsglist)
+        
+            print("Successfully imported NSG Rules from Azure!")
+        except:
+            print("An error occurred while accessing Azure. Please verify your Azure CLI installation, or your current login with Azure CLI (use 'az login') before continuing.")
     
     #Parse datafile if provided
     if(len(datafile) > 0):
@@ -75,6 +81,5 @@ def doIt(datafile, build, buildfile, genfile):
 
         utils.printOutputTable(nsglist)
 
-    end = timer()
-    print(f"\nCompleted in {round(Decimal(end - start),5) } milliseconds.")
+    utils.Timed()
 doIt()

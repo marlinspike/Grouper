@@ -16,7 +16,8 @@ from decimal import Decimal
 from network.securitygroup.nsglist import NSGList
 
 prefs = Preferences()
-
+start = 0.0
+end = 0.0
 ###
 # Generates a sample data file to use
 def generateSampleDataFile(path) -> bool:
@@ -56,3 +57,18 @@ def printOutputTable(nsglist:NSGList):
         num_rules = len(nsglist.nsgDict[key])
         table.add_row([key, val, num_rules])
     print(f"\n\n{table}\n")
+
+
+###
+# Task Timer
+def Timed():
+    global start
+    global end
+
+    if(start == float(0.0)):
+        start = timer()
+    else:
+        end = timer()
+        print(f"\nCompleted in {round(Decimal(end - start),5) } milliseconds.")
+        start = 0.0
+    

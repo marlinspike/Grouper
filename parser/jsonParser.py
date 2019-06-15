@@ -6,6 +6,7 @@ from collections import defaultdict
 from network.securitygroup.nsglist import NSGList
 
 CMD_GET_NSG_LIST = "az network nsg list -o json"
+CMD_GET_AZ_ACCOUNT = "az account show -o json"
 
 
 class JSONParser:
@@ -17,8 +18,12 @@ class JSONParser:
     ###
     # Parses a Json doc and returns a Dict of NSG rule mappings
     def parseJson(self) -> NSGList:
-        doc = json.loads(subprocess.run([CMD_GET_NSG_LIST], check=False, shell=True, stdout=subprocess.PIPE).stdout.decode('utf-8'))
-
+        doc = {}
+        try:
+            doc = json.loads(subprocess.run([CMD_GET_NSG_LIST], check=False, shell=True, stdout=subprocess.PIPE).stdout.decode('utf-8'))
+        except:
+            print("An error occurred accessing Azure via the CLI. Please verify your CLI installation, or login to Azure via 'az login' before continuing.")
+            
         nsgCount = len(doc)
         ruleCount:int
         nsgIdx:int 
@@ -35,9 +40,18 @@ class JSONParser:
                 row["location"] = doc[nsgIdx]["location"]
                 row["nsgname"] = nsgName
                 row["rulename"] = row["name"]
-                rule = SecurityRule().createFromOrderedDict(row)
                 nsglist.nsg_rg_lookup[row["nsgname"]] = nsgName
-                nsglist.addToDict(rule)
+                nsglist.addToDict(SecurityRule().createFromOrderedDict(row))
 
 
         return nsglist
+
+    ###
+    # Returns current account information
+    def parseAzureAccountJson(self) -> {}:
+        azAct = {}
+        try:
+            azAct = json.loads(subprocess.run([CMD_GET_AZ_ACCOUNT], check=False, shell=True, stdout=subprocess.PIPE).stdout.decode('utf-8'))
+        except:
+            print("An error occurred accessing Azure via the CLI. Please verify your CLI installation, or login to Azure via 'az login' before continuing.")
+        return azAct
