@@ -13,13 +13,29 @@ from network.securitygroup.nsglist import NSGList
 from collections import OrderedDict
 from prefs.prefs import Preferences
 import os
+from csv import DictReader
 
 class CSVParser:
 
     def __init__(self, filename):
         self.filename = filename
         self.prefs = Preferences()
-    
+
+
+    ###
+    # Return an NSGList object with a new item for each row supplied in the DictReader
+    def _doParseToNSGList(self, reader:DictReader) -> NSGList:
+        nsglist = NSGList()
+        for row in reader:
+                #Only add a rule if its priority is not in the Ignore List
+                if (not row["priority"] in self.prefs.lst_ignore_priority):
+                    rule = SecurityRule().createFromOrderedDict(row)
+                    nsglist.addToDict(rule)
+                    nsglist.nsg_rg_lookup[row["nsgname"]] = row["resourceGroup"]
+
+        return nsglist
+
+
     ###
     # Parse the CSV File to populate an NSGList with a SecurityRule object for each row
     # Returns: NSGList - List of NSG objects with their corresponding SecurityRule objects
@@ -27,14 +43,8 @@ class CSVParser:
         nsglist = NSGList()
         with open(self.filename) as csvFile:
             reader = csv.DictReader(csvFile)
-            
-            for row in reader:
-                #Only add a rule if its priority is not in the Ignore List
-                if (not row["priority"] in self.prefs.lst_ignore_priority):
-                    rule = SecurityRule().createFromOrderedDict(row)
-                    nsglist.addToDict(rule)
-                    nsglist.nsg_rg_lookup[row["nsgname"]] = row["resourceGroup"]
 
+            nsglist = self._doParseToNSGList(reader)
         return nsglist
 
     ###

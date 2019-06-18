@@ -9,6 +9,7 @@
 '''
 from collections import OrderedDict
 import copy
+import json
 
 class SecurityRule:
     def __init__(self):
@@ -57,6 +58,12 @@ class SecurityRule:
     def toDict(self) -> {}:
         return self._get_attribute_value_dictionary()
 
+    ###
+    # Returns an AttrValDict as OrderedDict
+    def toOrderedDict(self) -> OrderedDict:
+        oDict:OrderedDict = {k:v for (k,v) in self._get_attribute_value_dictionary().items()}
+        return oDict
+
     #Create an instance of this class given a dictionary of attribute/value pairs
     def createFromDict(self, **kwargs) -> 'SecurityRule':
         lst_attributes = self._get_attribute_list()
@@ -85,10 +92,11 @@ class SecurityRule:
     # Create an instance of this class given an JSON object containing the necessary params
     # Returns: SecurityRule based on the JSON Object passed
     def createFromJson(self, JsonRule) -> 'SecurityRule':
+        JsonDoc = json.loads(JsonRule)
         lst_attributes = self._get_attribute_list()
         #self.description, self.protocol = [kwargs.get(k) for k in lst_attributes]
         for attribute in lst_attributes:
-            self.__setattr__(attribute, JsonRule[attribute])
+            self.__setattr__(attribute, JsonDoc[attribute])
         
         return self.createFromDeepCopy(self)
     

@@ -3,7 +3,7 @@ import setuptools
 requirements = [
     'PTable==0.9.2',
     'Click>=7.0',
-    'prettytable>=7'
+    'prettytable'
 ]
 
 setuptools.setup(
@@ -11,6 +11,12 @@ setuptools.setup(
     version="0.90",
     packages=setuptools.find_packages(),
     install_requires=requirements,
+
+    entry_points={
+          'console_scripts': [
+              'do = Grouper.app:go'
+          ]
+      },
 
     package_data={
         '': ['*.txt', '*.rst']
