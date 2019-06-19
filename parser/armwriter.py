@@ -97,7 +97,10 @@ class ARMWriter:
         os_path = os.path.abspath(os.path.dirname(__file__))
         
         for key, val in file_dict.items():
-            file_path = os.path.join(os_path, "../output/" + key + ".txt")
+            file_dir = os.path.join(os_path, "../output/")
+            if not os.path.exists(file_dir):
+                os.makedirs(file_dir)
+            file_path = os.path.join(file_dir + key + ".txt")
             arm_file = open(file_path, "w")
             arm_file.write(val)
             arm_file.close()
