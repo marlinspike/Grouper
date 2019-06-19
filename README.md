@@ -1,5 +1,5 @@
 ## Grouper
-A Python command line tool to manage Azure Network Security Group Rules
+A **Python 3** command line tool to manage Azure Network Security Group Rules
 
 ## Inspiration
 A cutomer I was working with wanted a way to manage all their NSGs through a single (preferrably GUI) tool, so that a network admin/manager could edit them, without the need to know a scripting lanaguage or ARM. Azure NSGs are powerful, but while platform provides versatile traffic rules, it doesn't provide a convenient visual way to manage them across multiple NSGs. I've made Grouper to provide a solution for that.
