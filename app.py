@@ -36,8 +36,8 @@ def main():
     pass
 
 @main.command()
-@click.option('--buildfile', default="grouper.csv", help='Build Mode: Name the CSV File that Grouper will build from your NSG Rules')
-def azbuild(buildfile):
+@click.option('--csvfile', default="grouper.csv", help='Build Mode: Name the CSV File that Grouper will build from your NSG Rules')
+def aznsg(csvfile):
     utils.Timed()
 
     prefs = Preferences()
@@ -49,11 +49,11 @@ def azbuild(buildfile):
         Az = JSONParser().parseAzureAccountJson()
         print(f"Importing NSGs from Azure:\nAccount: {Az['name']}\nEnvironment: {Az['environmentName']}")
         nsglist = JSONParser().parseJson()
-        grouper_file = os.path.join(os_path, buildfile)
-        CSVParser(buildfile).writeCSVFromNSGList(nsglist, os_path)
+        grouper_file = os.path.join(os_path, csvfile)
+        CSVParser(csvfile).writeCSVFromNSGList(nsglist, os_path)
         utils.printOutputTable(nsglist)
     
-        print(f"Successfully imported NSG Rules from Azure to file [{buildfile}]!")
+        print(f"Successfully imported NSG Rules from Azure to file [{csvfile}]!")
     except:
         print("An error occurred while accessing Azure. Please verify your Azure CLI installation, or your current login with Azure CLI (use 'az login') before continuing.")
 
@@ -63,16 +63,16 @@ def azbuild(buildfile):
 
 #Writes arm templates based upon the CSV datafile passed
 @main.command()
-@click.option('--datafile', default="", help='CSV data file to use')
-def csvtoarm(datafile):
+@click.option('--csvfile', default="", help='CSV data file to use')
+def csvtoarm(csvfile):
     utils.Timed()
     os_path = os.path.abspath(os.path.dirname(__file__))
     #Parse datafile if provided
-    if(len(datafile) > 0):
-        grouper_file = os.path.join(os_path, datafile)
+    if(len(csvfile) > 0):
+        grouper_file = os.path.join(os_path, csvfile)
         file_exists = os.path.isfile(grouper_file)
         if(file_exists == False):
-                print(f"Error: There was an issue reading in the data file {datafile}.\n\nPlease use the --genfile option to generate a sample data file to customize.")
+                print(f"Error: There was an issue reading in the data file {csvfile}.\n\nPlease use the --genfile option to generate a sample data file to customize.")
                 sys.exit(200)
 
         parser = CSVParser(grouper_file)
