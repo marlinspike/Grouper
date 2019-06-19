@@ -93,18 +93,23 @@ class ARMWriter:
 
     ###
     # Writes each ARM Template out as an individual file  
-    def doWrite_ARMTemplate(self, file_dict:defaultdict(list)):
+    def doWrite_ARMTemplate(self, file_dict:defaultdict(list)) -> bool:
         os_path = os.path.abspath(os.path.dirname(__file__))
+        isDone = True
+
+        try:
+            for key, val in file_dict.items():
+                file_dir = os.path.join(os_path, "../output/")
+                if not os.path.exists(file_dir):
+                    os.makedirs(file_dir)
+                file_path = os.path.join(file_dir + key + ".txt")
+                arm_file = open(file_path, "w")
+                arm_file.write(val)
+                arm_file.close()
+        except:
+            isDone = False
         
-        for key, val in file_dict.items():
-            file_dir = os.path.join(os_path, "../output/")
-            if not os.path.exists(file_dir):
-                os.makedirs(file_dir)
-            file_path = os.path.join(file_dir + key + ".txt")
-            arm_file = open(file_path, "w")
-            arm_file.write(val)
-            arm_file.close()
-        
+        return isDone
 
     
 

@@ -49,11 +49,11 @@ def azbuild(buildfile):
         Az = JSONParser().parseAzureAccountJson()
         print(f"Importing NSGs from Azure:\nAccount: {Az['name']}\nEnvironment: {Az['environmentName']}")
         nsglist = JSONParser().parseJson()
-        grouper_file = os.path.join(os_path, 'Grouper.csv')
-        CSVParser('Grouper.csv').writeCSVFromNSGList(nsglist, os_path)
+        grouper_file = os.path.join(os_path, buildfile)
+        CSVParser(buildfile).writeCSVFromNSGList(nsglist, os_path)
         utils.printOutputTable(nsglist)
     
-        print("Successfully imported NSG Rules from Azure!")
+        print(f"Successfully imported NSG Rules from Azure to file [{buildfile}]!")
     except:
         print("An error occurred while accessing Azure. Please verify your Azure CLI installation, or your current login with Azure CLI (use 'az login') before continuing.")
 
@@ -80,9 +80,9 @@ def csvtoarm(datafile):
 
         armWriter = ARMWriter()
         arm_template = armWriter.doBuild_Nsg_Template(nsglist.nsgDict)
-        armWriter.doWrite_ARMTemplate(arm_template)
-
-        utils.printOutputTable(nsglist)
+        if (armWriter.doWrite_ARMTemplate(arm_template)):
+            utils.printOutputTable(nsglist)
+            print(f"Successfully created output ARM Templates in [output] directory for each NSG!")
     utils.Timed()
 
 
