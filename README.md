@@ -22,34 +22,34 @@ Grouper is an easy to use command line tool. It requires the Azure CLI installed
 `python app.py `
 
 This prints basic command help text to console.
-![alt text]([http://url/to/img.png](https://raw.githubusercontent.com/marlinspike/grouper/master/readme/grouper-1.png))
+![Print basic help](https://raw.githubusercontent.com/marlinspike/grouper/master/readme/grouper-1.png)
 
 #3 - Serialize Azure Network Security Group (NSG) rules to a local CSV file
 Grouper will use the Azure CLI to query your subscription for NSG rules, and then parse the response to create a CSV file in the root of the Grouper application. This CSV file can become your management plane for editing or creating new NSG Rules, or simply a single pane of glass to see all the NSG rules in your subscription.
 
 `python app.py aznsg --csvfile azure-nsg.csv`
 
-![alt text]([http://url/to/img.png](https://raw.githubusercontent.com/marlinspike/grouper/master/readme/grouper-aznsg.png))
+![alt text](https://raw.githubusercontent.com/marlinspike/grouper/master/readme/grouper-aznsg.png)
 
 #3 - Edit the CSV file in your favorite editor
 You can then use Excel, Numbers, or any other editor to view or make edits to your NSG Rules, including adding rules, or modifying existing ones. Once you're done, use Grouper to create ARM Templates from your CSV file.
 
-![alt text]([http://url/to/img.png](https://raw.githubusercontent.com/marlinspike/grouper/master/readme/grouper-edit-csv.png))
+![Edit CSV File]([[http://url/to/img.png](https://raw.githubusercontent.com/marlinspike/grouper/master/readme/grouper-edit-csv.png)
 
 #4 - Create ARM templates from your CSF File
 Editing your NSGs via CSV File is just the first step; Grouper allows you to export your CSV files as ARM Tempalates, which you can then check into your source control as valid and complete rules that can be applied manually via PowerShell/CI, in the Portal, or via your CI/CD pipeline. In that way, your exported ARM templates now become your Infrastructure as Code, while still maintaining an easy to use control plane (your CSV editor).
 
 `python app.py csvtoarm --csvfile azure-nsg.csv`
-![alt text]([http://url/to/img.png](https://raw.githubusercontent.com/marlinspike/grouper/master/readme/grouper-csvtoarm.png))
+![Convert CSV File to ARM Template](https://raw.githubusercontent.com/marlinspike/grouper/master/readme/grouper-csvtoarm.png)
 
 The resulting ARM templates are exported to the *output* folder, as shown below:
-![alt text]([http://url/to/img.png](https://raw.githubusercontent.com/marlinspike/grouper/master/readme/grouper-armtemplates.png))
+![ARM Templates in Output folder](https://raw.githubusercontent.com/marlinspike/grouper/master/readme/grouper-armtemplates.png)
 
 ## Generate a sample CSV to experiment and test editing and exporting ARM Templates
 Grouper can generate a sample CSV file so that you can experiment with editing the CSV File, and then generate ARM templates. The sample NSG Rules provide a nice playground to see how edits are converted to ARM templates.
 
 `python app.py generatecsv`
-![alt text]([http://url/to/img.png](https://raw.githubusercontent.com/marlinspike/grouper/master/readme/grouper-generatecsv.png))
+![Generate Sample CSV File](https://raw.githubusercontent.com/marlinspike/grouper/master/readme/grouper-generatecsv.png)
 
 
 ## Future
