@@ -26,7 +26,6 @@ import os
 import sys
 from prettytable import PrettyTable
 from prefs.prefs import Preferences
-from progress.bar import ShadyBar
 import time
 from timeit import default_timer as timer
 from decimal import Decimal

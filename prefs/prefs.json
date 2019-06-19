@@ -3,7 +3,7 @@
     "grouper_version":"0.91",
     "preferred_order":"resourceGroup,location,nsgname,rulename,description,protocol,sourcePortRange,destinationPortRange,sourceAddressPrefix,destinationAddressPrefix,access,priority,direction,sourcePortRanges,destinationPortRanges,sourceAddressPrefixes,destinationAddressPrefixes",
     "sample_data_contents": [
-    "resource_group,location,nsgname,rulename,description,protocol,sourcePortRange,destinationPortRange,sourceAddressPrefix,destinationAddressPrefix,access,priority,direction,sourcePortRanges,destinationPortRanges,sourceAddressPrefixes,destinationAddressPrefixes",
+    "resourceGroup,location,nsgname,rulename,description,protocol,sourcePortRange,destinationPortRange,sourceAddressPrefix,destinationAddressPrefix,access,priority,direction,sourcePortRanges,destinationPortRanges,sourceAddressPrefixes,destinationAddressPrefixes",
     "dev,eastus,win10vm1nsg744,Port_3389,description,TCP,*,3389,*,*,Allow,100,Inbound,[],[],[],[]",
     "dev,eastus,win10vm1nsg744,Port_443,description,TCP,*,443,*,*,Allow,150,Inbound,[],[],[],[]",
     "dev,eastus,win10vm1nsg744,Port_80,description,TCP,*,80,*,*,Allow,200,Inbound,[],[],[],[]",
