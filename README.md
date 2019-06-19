@@ -14,7 +14,7 @@ Grouper can:
 Grouper is an easy to use command line tool. It requires the Azure CLI installed and you must log in to the subscription for which you want to manage Network Security Group rules.
 
 ### 1 - Setting up dependencies
-- Install python dependencies: python setup.py install
+- Install python dependencies: `python setup.py install`
 - Install Azure CLI (if you don't already have it installed): https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest
 - Log in to your Azure subscription using the Azure CLI: az login
 
