@@ -34,7 +34,7 @@ Grouper will use the Azure CLI to query your subscription for NSG rules, and the
 #3 - Edit the CSV file in your favorite editor
 You can then use Excel, Numbers, or any other editor to view or make edits to your NSG Rules, including adding rules, or modifying existing ones. Once you're done, use Grouper to create ARM Templates from your CSV file.
 
-![Edit CSV File]([[http://url/to/img.png](https://raw.githubusercontent.com/marlinspike/grouper/master/readme/grouper-edit-csv.png)
+![Edit CSV File](https://raw.githubusercontent.com/marlinspike/grouper/master/readme/grouper-edit-csv.png)
 
 #4 - Create ARM templates from your CSF File
 Editing your NSGs via CSV File is just the first step; Grouper allows you to export your CSV files as ARM Tempalates, which you can then check into your source control as valid and complete rules that can be applied manually via PowerShell/CI, in the Portal, or via your CI/CD pipeline. In that way, your exported ARM templates now become your Infrastructure as Code, while still maintaining an easy to use control plane (your CSV editor).
