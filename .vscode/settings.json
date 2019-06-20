@@ -1,9 +1,0 @@
-{
-    "python.pythonPath": "/Users/reuben/anaconda3/bin/python",
-    "files.exclude": {
-        "**/.classpath": true,
-        "**/.project": true,
-        "**/.settings": true,
-        "**/.factorypath": true
-    }
-}
