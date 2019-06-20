@@ -56,6 +56,7 @@ Grouper can generate a sample CSV file so that you can experiment with editing t
 
 ## Future
 Some of the future development ideas I'm toying with:
+- More validations and tests
 - Export to CLI, which is also idempotent, and a widely used way to interact programmatically with Azure
 - Apply templates rules across NSGs
 - Export to PowerShell
