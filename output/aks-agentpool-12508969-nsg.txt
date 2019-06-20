@@ -1,0 +1,78 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "networkSecurityGroups_win10vm1nsg744_name": {
+            "defaultValue": "aks-agentpool-12508969-nsg",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "apiVersion": "2018-12-01",
+            "name": "aks-agentpool-12508969-nsg",
+            "location": "eastus2",
+            "properties": {
+                "securityRules": [
+
+                    {
+                        "name": "a9a6ea6c8886411e992b7ae432d52044-TCP-80-Internet",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "80",
+                            "sourceAddressPrefix": "Internet",
+                            "destinationAddressPrefix": "104.209.128.74",
+                            "access": "Allow",
+                            "priority": 500,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    }
+                    ,
+                    {
+                        "name": "a9a6ea6c8886411e992b7ae432d52044-TCP-443-Internet",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "Internet",
+                            "destinationAddressPrefix": "104.209.128.74",
+                            "access": "Allow",
+                            "priority": 501,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    }
+                    ,
+                    {
+                        "name": "ac71b478888bc11e99a55b67ba68be15-TCP-80-Internet",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "80",
+                            "sourceAddressPrefix": "Internet",
+                            "destinationAddressPrefix": "52.177.112.17",
+                            "access": "Allow",
+                            "priority": 502,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    }
+                    
+                ]
+            }
+        }
+    ]
+}

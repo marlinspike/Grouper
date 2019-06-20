@@ -103,9 +103,8 @@ class ARMWriter:
                 if not os.path.exists(file_dir):
                     os.makedirs(file_dir)
                 file_path = os.path.join(file_dir + key + ".txt")
-                arm_file = open(file_path, "w")
-                arm_file.write(val)
-                arm_file.close()
+                with open(file_path, "w") as arm_file:
+                    arm_file.write(val)
         except:
             isDone = False
         
