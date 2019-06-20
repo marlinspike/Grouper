@@ -34,6 +34,8 @@ Grouper will use the Azure CLI to query your subscription for NSG rules, and the
 ### 4 - Edit the CSV file in your favorite editor
 You can then use Excel, Numbers, or any other editor to view or make edits to your NSG Rules, including adding rules, or modifying existing ones. Once you're done, use Grouper to create ARM Templates from your CSV file.
 
+Note: Grouper will respect Azure protected rule priority numbers (65000, 65001, 65500), and will ignore rules given any of those priorities.
+
 ![Edit CSV File](https://raw.githubusercontent.com/marlinspike/grouper/master/readme/grouper-edit-csv.png)
 
 ### 5 - Create ARM templates from your CSF File
