@@ -48,13 +48,11 @@ class ARMWriter:
         for key, rules in nsgList.items():
             NsgTemplate = self.Nsg_Template
             NsgTemplate = NsgTemplate.replace("%NSGNAME%", key)
-
+            
             #Loop through each NSG
             if(current_key != key):
                 NSGRuleTemplate = ""
                 current_key = key
-            
-            
             idx = 0
             for rule in rules:
                 #Loop through each Security Rule

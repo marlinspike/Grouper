@@ -21,6 +21,7 @@ from network.securitygroup.securityrule import SecurityRule
 from parser.csvparser import CSVParser
 from network.securitygroup.nsglist import NSGList
 from parser.armwriter import ARMWriter
+from parser.cliwriter import CLIWriter
 from prefs import utils
 import os
 import sys
@@ -72,7 +73,7 @@ def csvtoarm(csvfile):
         grouper_file = os.path.join(os_path, csvfile)
         file_exists = os.path.isfile(grouper_file)
         if(file_exists == False):
-                print(f"Error: There was an issue reading in the data file {csvfile}.\n\nPlease use the --genfile option to generate a sample data file to customize.")
+                print(f"Error: There was an error reading in the data file {csvfile}.\n\nPlease use the --genfile option to generate a sample data file to customize.")
                 sys.exit(200)
 
         parser = CSVParser(grouper_file)
@@ -83,6 +84,31 @@ def csvtoarm(csvfile):
         if (armWriter.doWrite_ARMTemplate(arm_template)):
             utils.printOutputTable(nsglist)
             print(f"Successfully created output ARM Templates in [output] directory for each NSG!")
+    utils.Timed()
+
+
+#Generates CLI file from CSV
+@main.command()
+@click.option('--csvfile', default="", help='CSV data file to use')
+@click.option('--clifile', default="cliFile.cli", help='CSV data file to use')
+def csvtocli(csvfile, clifile):
+    utils.Timed()
+    os_path = os.path.abspath(os.path.dirname(__file__))
+    #Parse datafile if provided
+    if(len(csvfile) > 0):
+        grouper_file = os.path.join(os_path, csvfile)
+        file_exists = os.path.isfile(grouper_file)
+        if(file_exists == False):
+                print(f"Error: There was an error reading in the data file {csvfile}.\n\nPlease use the --genfile option to generate a sample data file to customize.")
+                sys.exit(200)
+
+        parser = CSVParser(grouper_file)
+        nsglist = parser.doCSVParse()
+
+        cliWriter = CLIWriter(clifile)
+        if (cliWriter.doWrite_CLIScript(nsglist.nsgDict,os.path.abspath(os.path.dirname(__file__)))):
+            utils.printOutputTable(nsglist)
+            print(f"Successfully created CLI Scripts in [output] directory for each NSG!")
     utils.Timed()
 
 

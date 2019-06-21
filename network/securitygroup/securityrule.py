@@ -141,3 +141,9 @@ class SecurityRule:
         for attribute in self._get_attribute_list():
             var_val[attribute] = self.__getattribute__(attribute)
         return var_val
+
+    
+    def getAttributeValueByName(self, attr):
+        dict = self._get_attribute_value_dictionary()
+        val = dict[attr] if attr in dict else ""
+        return val

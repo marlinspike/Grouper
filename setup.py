@@ -25,7 +25,7 @@ setuptools.setup(
     # metadata to display on PyPI
     author="Reuben Cleetus",
     author_email="reuben@cleet.us",
-    description="Azure NSG Rules easily managed via a CSV File, which Gruoper than exports as complete ARM templates that you can place into Source Control and use directly.",
+    description="Azure NSG Rules easily managed via a CSV File, which Gruoper then exports as complete ARM templates that you can place into Source Control and use directly.",
     license="MIT",
     keywords="Azure, NSG, Rules, Management"
 
