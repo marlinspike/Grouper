@@ -1,0 +1,51 @@
+# vm-2-short-nsg 
+az network nsg rule create  --name HTTP  --nsg-name vm-2-short-nsg  --priority 300  --resource-group AzureBackupRG_eastus_1  --access Allow  --direction Inbound  --protocol TCP  
+
+az network nsg rule create  --name RDP  --nsg-name vm-2-short-nsg  --priority 320  --resource-group AzureBackupRG_eastus_1  --access Allow  --direction Inbound  --protocol TCP  
+
+
+
+# ulin-1-nsg 
+az network nsg rule create  --name SSH  --nsg-name ulin-1-nsg  --priority 300  --resource-group dev  --access Allow  --direction Inbound  --protocol TCP  
+
+az network nsg rule create  --name HTTP  --nsg-name ulin-1-nsg  --priority 320  --resource-group dev  --access Allow  --direction Inbound  --protocol TCP  
+
+
+
+# win10-vm1-nsg 
+az network nsg rule create  --name RDP  --nsg-name win10-vm1-nsg  --priority 320  --resource-group dev  --access Allow  --direction Inbound  --protocol TCP  
+
+az network nsg rule create  --name Port_8080  --nsg-name win10-vm1-nsg  --priority 330  --resource-group dev  --access Allow  --direction Inbound  --protocol *  
+
+
+
+# win10vm1nsg744 
+az network nsg rule create  --name Port_3389  --nsg-name win10vm1nsg744  --priority 100  --resource-group dev  --access Allow  --direction Inbound  --protocol TCP  
+
+az network nsg rule create  --name Port_443  --nsg-name win10vm1nsg744  --priority 150  --resource-group dev  --access Allow  --direction Inbound  --protocol TCP  
+
+az network nsg rule create  --name Port_80  --nsg-name win10vm1nsg744  --priority 200  --resource-group dev  --access Allow  --direction Inbound  --protocol TCP  
+
+az network nsg rule create  --name Port_22  --nsg-name win10vm1nsg744  --priority 250  --resource-group dev  --access Allow  --direction Outbound  --protocol TCP  
+
+
+
+# win10-vs-nsg 
+az network nsg rule create  --name RDP  --nsg-name win10-vs-nsg  --priority 100  --resource-group dev  --access Allow  --direction Inbound  --protocol TCP  
+
+
+
+# aks-agentpool-12508969-nsg 
+az network nsg rule create  --name a9a6ea6c8886411e992b7ae432d52044-TCP-80-Internet  --nsg-name aks-agentpool-12508969-nsg  --priority 500  --resource-group MC_kuber_k8c_eastus2  --access Allow  --direction Inbound  --protocol Tcp  
+
+az network nsg rule create  --name a9a6ea6c8886411e992b7ae432d52044-TCP-443-Internet  --nsg-name aks-agentpool-12508969-nsg  --priority 501  --resource-group MC_kuber_k8c_eastus2  --access Allow  --direction Inbound  --protocol Tcp  
+
+az network nsg rule create  --name ac71b478888bc11e99a55b67ba68be15-TCP-80-Internet  --nsg-name aks-agentpool-12508969-nsg  --priority 502  --resource-group MC_kuber_k8c_eastus2  --access Allow  --direction Inbound  --protocol Tcp  
+
+
+
+# win-office-nsg 
+az network nsg rule create  --name RDP  --nsg-name win-office-nsg  --priority 300  --resource-group win-office  --access Allow  --direction Inbound  --protocol TCP  
+
+
+

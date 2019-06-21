@@ -8,6 +8,7 @@ A cutomer I was working with wanted a way to manage all their NSGs through a sin
 Grouper can:
 - Save all the NSG rules in your current Azure subscription to a CSV File, so that you can manage them via Excel or any other CSV editor
 - Generate ARM templates from the CSV file, which can be committed to your Source Control System. ARM Templates are idempotent, so it won't matter if you re-run the same template: it will have no more effects than running it a sigle time
+- Generate CLI scripts from the CSV file for each NSG
 - Generate a sample CSV file so you can experiment with Grouper
 
 ## Using Grouper
@@ -47,7 +48,16 @@ Editing your NSGs via CSV File is just the first step; Grouper allows you to exp
 The resulting ARM templates are exported to the *output* folder, as shown below:
 ![ARM Templates in Output folder](https://raw.githubusercontent.com/marlinspike/grouper/master/readme/grouper-armtemplates.png)
 
-### 6 Generate a sample CSV to experiment and test editing and exporting ARM Templates
+
+### 6 - Create CLI scripts from your CSF File
+CLI Scripts, like ARM Templates, are also idempotent and much easier to read as well. Grouper can export your CSV file to CLI Scripts, which
+can similarly be added to your source control and made part of your CI/CD pipeline. Your exported CLI scripts are then Infrastructure as Code.
+
+The resulting CLI script areis exported to the *output* folder, as shown below:
+![CLI Script in Output folder](https://raw.githubusercontent.com/marlinspike/grouper/master/readme/grouper-csvtocli.png)
+
+
+### 7 Generate a sample CSV to experiment and test editing and exporting ARM Templates
 Grouper can generate a sample CSV file so that you can experiment with editing the CSV File, and then generate ARM templates. The sample NSG Rules provide a nice playground to see how edits are converted to ARM templates.
 
 `python app.py generatecsv`
@@ -57,6 +67,6 @@ Grouper can generate a sample CSV file so that you can experiment with editing t
 ## Future
 Some of the future development ideas I'm toying with:
 - More validations and tests
-- Export to CLI, which is also idempotent, and a widely used way to interact programmatically with Azure
+- ~~Export to CLI~~ Done!
 - Apply templates rules across NSGs
 - Export to PowerShell

@@ -63,10 +63,7 @@ class CLIWriter:
                             param = gen["name"]
                             ruleValue = rule.getAttributeValueByName(param)
                             cmd = cmd + f" {gen['cmd']} {ruleValue} " if self.getAttrLength(ruleValue) > 0 else cmd + ""
-                
                         cFile.write(f"{self.CLI_SCRIPT + cmd} \n\n")
-                        print(self.CLI_SCRIPT + cmd)
-
                     cFile.write("\n\n")
         except:
             isDone = False
