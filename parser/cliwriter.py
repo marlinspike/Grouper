@@ -37,7 +37,6 @@ class CLIWriter:
     # Writes a CLI Script out, with each NSG mapped to an individual file  
     def doWrite_CLIScript(self, nsgList:NSGList, path:str) -> bool:
         file_dict = {}
-        current_key = ""
         script = self.CLI_SCRIPT
         isDone = True
 
@@ -46,23 +45,16 @@ class CLIWriter:
             cli_file = os.path.join(path, "output", self.filename)
             if not os.path.exists(file_dir):
                 os.makedirs(file_dir)
-
+                
             with open(cli_file, 'w') as cFile:
                 for nsgName, rules in nsgList.items():
                     cFile.write(f"# {nsgName} \n")
-                    #Loop through each NSG
-                    if(current_key != nsgName):
-                        NSGRuleTemplate = ""
-                        current_key = nsgName
-                    idx = 0
                     rule:SecurityRule
                     for rule in rules:
                         cmd:str = ""
-                        param:str = ""
                         for gen in (item for item in self.CLI_PARAMS_DICT):
-                            param = gen["name"]
-                            ruleValue = rule.getAttributeValueByName(param)
-                            cmd = cmd + f" {gen['cmd']} {ruleValue} " if self.getAttrLength(ruleValue) > 0 else cmd + ""
+                            ruleValue = rule.getAttributeValueByName(gen["name"])
+                            cmd = cmd + f" {gen['cmd']} {ruleValue} " if self.getAttrLength(ruleValue) > 0 else cmd
                         cFile.write(f"{self.CLI_SCRIPT + cmd} \n\n")
                     cFile.write("\n\n")
         except:
