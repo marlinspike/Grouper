@@ -1,9 +1,10 @@
 import setuptools
 
 requirements = [
-    'PTable==0.9.2',
-    'Click>=7.0',
-    'prettytable'
+    'click',
+    'prettytable',
+    'PyYAML',
+    'rich'
 ]
 
 setuptools.setup(
