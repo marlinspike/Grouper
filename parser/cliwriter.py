@@ -11,8 +11,22 @@ from network.securitygroup.securityrule import SecurityRule
 from pathlib import Path
 from collections import defaultdict
 import os
+import logging
+from logger_config import setup_logger
+
+setup_logger()
 
 class CLIWriter:
+    """
+    A class used to generate Azure CLI scripts for creating network security group (NSG) rules.
+
+    This class contains methods to generate Azure CLI scripts based on the provided NSG rules. 
+    It uses a predefined dictionary to map parameter names to their corresponding Azure CLI options. 
+    The scripts are written to a specified file.
+
+    Attributes:
+        filename (str): The name of the file to write the CLI scripts to.
+    """
     CLI_PARAMS_DICT = [{'name':'rulename','cmd':'--name'}, {'name':'nsgname', 'cmd':'--nsg-name'}, {'name':'priority', 'cmd':'--priority'}, 
     {'name':'resourceGroup', 'cmd':'--resource-group'}, {'name':'access', 'cmd':'--access'}, {'name':'description', 'cmd':'--description'}, 
     {'name':'destinationAddressPrefixes', 'cmd':'--destination-address-prefixes'}, 
@@ -26,16 +40,38 @@ class CLIWriter:
         self.filename = filename
     
 
-    ###
-    # Returns attribute value
     def getAttrLength(self, attr) -> int:
+        """
+        Returns the length of the attribute.
+
+        This method returns the length of the provided attribute. If the attribute is an empty list (represented as "[]"), 
+        it returns 0.
+
+        Args:
+            attr (str): The attribute whose length is to be determined.
+
+        Returns:
+            int: The length of the attribute, or 0 if the attribute is an empty list.
+        """
         return len(attr) if attr != "[]" else 0
 
 
 
-    ###
-    # Writes a CLI Script out, with each NSG mapped to an individual file  
     def doWrite_CLIScript(self, nsgList:NSGList, path:str) -> bool:
+        """
+        Writes the Azure CLI scripts to a file.
+
+        This method generates Azure CLI scripts for each NSG and its rules in the provided NSG list. 
+        It writes these scripts to a file in the specified path. If the output directory does not exist, 
+        it is created.
+
+        Args:
+            nsgList (NSGList): A list of NSGs, each with its associated rules.
+            path (str): The path where the CLI script file should be written.
+
+        Returns:
+            bool: True if the operation was successful, False otherwise.
+        """
         file_dict = {}
         script = self.CLI_SCRIPT
         isDone = True

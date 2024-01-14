@@ -14,17 +14,42 @@ from collections import OrderedDict
 from prefs.prefs import Preferences
 import os
 from csv import DictReader
+import logging
+from logger_config import setup_logger
+
+setup_logger()
+
 
 class CSVParser:
+    """
+    A class used to parse CSV files.
 
+    This class contains methods to read and parse CSV files. It is designed to handle CSV files 
+    that contain information about Network Security Groups (NSGs) and their rules.
+
+    Attributes:
+        filename (str): The name of the CSV file to be parsed.
+    """
     def __init__(self, filename):
         self.filename = filename
         self.prefs = Preferences()
 
 
-    ###
-    # Return an NSGList object with a new item for each row supplied in the DictReader
     def _doParseToNSGList(self, reader:DictReader) -> NSGList:
+        """
+        Parses the CSV file to a list of NSGs.
+
+        This method reads the CSV file line by line using the provided DictReader object. For each line, 
+        it checks if the priority of the rule is not in the ignore list. If it's not, it creates a new 
+        SecurityRule object from the row and adds it to the NSGList. It also updates the NSG resource 
+        group lookup dictionary with the NSG name and its corresponding resource group.
+
+        Args:
+            reader (DictReader): A DictReader object for reading the CSV file.
+
+        Returns:
+            NSGList: A list of NSGs parsed from the CSV file.
+        """
         nsglist = NSGList()
         for row in reader:
                 #Only add a rule if its priority is not in the Ignore List
@@ -36,10 +61,17 @@ class CSVParser:
         return nsglist
 
 
-    ###
-    # Parse the CSV File to populate an NSGList with a SecurityRule object for each row
-    # Returns: NSGList - List of NSG objects with their corresponding SecurityRule objects
+
     def doCSVParse(self) -> NSGList:
+        """
+        Parses the CSV file to populate an NSGList with a SecurityRule object for each row.
+
+        This method opens the CSV file, reads it using a DictReader object, and then calls the 
+        `_doParseToNSGList` method to parse the CSV data into an NSGList.
+
+        Returns:
+            NSGList: A list of NSG objects with their corresponding SecurityRule objects.
+        """
         nsglist = NSGList()
         with open(self.filename) as csvFile:
             reader = csv.DictReader(csvFile)
@@ -47,9 +79,17 @@ class CSVParser:
             nsglist = self._doParseToNSGList(reader)
         return nsglist
 
-    ###
-    # Reorders a dict of SecurityRule based on prefs
+
     def reorderDict(self, dict) -> OrderedDict:
+        """
+        Parses the CSV file to populate an NSGList with a SecurityRule object for each row.
+
+        This method opens the CSV file, reads it using a DictReader object, and then calls the 
+        `_doParseToNSGList` method to parse the CSV data into an NSGList.
+
+        Returns:
+            NSGList: A list of NSG objects with their corresponding SecurityRule objects.
+        """
         preferredOrder = Preferences().load_prefs("preferred_order").split(",")
         oDict = OrderedDict([item, ''] for item in preferredOrder) 
 
@@ -59,9 +99,21 @@ class CSVParser:
         return oDict
 
 
-    ###
-    # Writes a Grouper CSV File from an NSG List
     def writeCSVFromNSGList(self, nsgList:NSGList, path:str) -> bool:
+        """
+        Writes a Grouper CSV file from an NSG list.
+
+        This method generates a CSV file from the provided NSG list. Each row in the CSV file corresponds to a 
+        SecurityRule object in the NSG list. The columns of the CSV file are the attributes of the SecurityRule 
+        objects, in the order specified by the "preferred_order" preference.
+
+        Args:
+            nsgList (NSGList): A list of NSGs, each with its associated rules.
+            path (str): The path where the CSV file should be written.
+
+        Returns:
+            bool: True if the operation was successful, False otherwise.
+        """
         os_path = os.path.abspath(os.path.dirname(__file__))
         grouper_file = os.path.join(path, self.filename)
 

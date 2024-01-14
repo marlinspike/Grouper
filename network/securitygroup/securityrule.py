@@ -10,6 +10,7 @@
 from collections import OrderedDict
 import copy
 import json
+import logging
 
 class SecurityRule:
     def __init__(self):
@@ -31,27 +32,28 @@ class SecurityRule:
         self.sourceAddressPrefixes = []
         self.destinationAddressPrefixes = []
 
-    
-    ###
-    # Populates attributes in the current object, given another SecurityRule object
+        
+        ###
+        # Populates attributes in the current object, given another SecurityRule object
     def populateAttributes(self, obj:'SecurityRule'):
-        self.resourceGroup = getattr(obj,"resourceGroup")
-        self.location = getattr(obj,"location")
-        self.nsgname = getattr(obj, "nsgname")
-        self.rulename = getattr(obj, "rulename")
-        self.description = getattr(obj, "description")
-        self.protocol = getattr(obj, "protocol")
-        self.sourcePortRange = getattr(obj, "sourcePortRange")
-        self.destinationPortRange = getattr(obj, "destinationPortRange")
-        self.sourcePortRanges = getattr(obj, "sourcePortRanges")
-        self.destinationPortRanges = getattr(obj, "destinationPortRanges")
-        self.sourceAddressPrefix = getattr(obj, "sourceAddressPrefix")
-        self.destinationAddressPrefix = getattr(obj, "destinationAddressPrefix")
-        self.sourceAddressPrefixes = getattr(obj, "sourceAddressPrefixes")
-        self.destinationAddressPrefixes = getattr(obj, "destinationAddressPrefixes")
-        self.access = getattr(obj, "access")
-        self.priority = getattr(obj, "priority")
-        self.direction = getattr(obj, "direction")
+        self.resourceGroup = getattr(obj,"resourceGroup") if hasattr(obj, "resourceGroup") else ""
+        self.location = getattr(obj,"location") if hasattr(obj, "location") else ""
+        self.nsgname = getattr(obj, "nsgname") if hasattr(obj, "nsgname") else ""
+        self.rulename = getattr(obj, "rulename") if hasattr(obj, "rulename") else ""
+        self.description = getattr(obj, "description") if hasattr(obj, "description") else ""
+        self.protocol = getattr(obj, "protocol") if hasattr(obj, "protocol") else ""
+        self.sourcePortRange = getattr(obj, "sourcePortRange") if hasattr(obj, "sourcePortRange") else ""
+        self.destinationPortRange = getattr(obj, "destinationPortRange") if hasattr(obj, "destinationPortRange") else ""
+        self.sourcePortRanges = getattr(obj, "sourcePortRanges") if hasattr(obj, "sourcePortRanges") else ""
+        self.destinationPortRanges = getattr(obj, "destinationPortRanges") if hasattr(obj, "destinationPortRanges") else ""
+        self.sourceAddressPrefix = getattr(obj, "sourceAddressPrefix") if hasattr(obj, "sourceAddressPrefix") else ""
+        self.destinationAddressPrefix = getattr(obj, "destinationAddressPrefix") if hasattr(obj, "destinationAddressPrefix") else ""
+        self.sourceAddressPrefixes = getattr(obj, "sourceAddressPrefixes") if hasattr(obj, "sourceAddressPrefixes") else ""
+        self.destinationAddressPrefixes = getattr(obj, "destinationAddressPrefixes") if hasattr(obj, "destinationAddressPrefixes") else ""
+        self.access = getattr(obj, "access") if hasattr(obj, "access") else ""
+        self.priority = getattr(obj, "priority") if hasattr(obj, "priority") else ""
+        self.direction = getattr(obj, "direction") if hasattr(obj, "direction") else ""
+
 
     ###
     # Returns an AttrValDict

@@ -12,26 +12,60 @@ from network.securitygroup.securityrule import SecurityRule
 from pathlib import Path
 from collections import defaultdict
 import os
+import logging
+from logger_config import setup_logger
+
+setup_logger()
 
 class ARMWriter:
+    """
+    A class used to handle Azure Resource Manager (ARM) templates for Network Security Groups (NSGs) and NSG rules.
+
+    Attributes:
+        FILE_NSGARMTEMPLATE (str): The filename of the NSG ARM template.
+        FILE_NSGRULEARMTEMPLATE (str): The filename of the NSG rule ARM template.
+        Nsg_Template (str): The content of the NSG ARM template.
+        Nsg_Rule_Template (str): The content of the NSG rule ARM template.
+    """
     def __init__(self):
+        """
+        The constructor for ARMWriter class.
+
+        Initializes the filenames of the NSG and NSG rule ARM templates, and stores their content.
+        """
         self.FILE_NSGARMTEMPLATE = "nsg_arm_template.txt"
         self.FILE_NSGRULEARMTEMPLATE = "nsgrule_arm_template.txt"
         self.Nsg_Template = str(self.getNSGTemplate())
         self.Nsg_Rule_Template = str(self.getNSGRuleTemplate())
     
-    ###
-    #Reads and returns the NSG ARM Template file
     def getNSGTemplate(self) -> str:
+        """
+        Reads and returns the NSG ARM Template file.
+
+        This method reads the NSG ARM Template file from the relative path "../meta/", 
+        stores its content in the instance variable `self.Nsg_Template`, and returns the content.
+
+        Returns:
+            str: The content of the NSG ARM Template file.
+        """
         os_path = os.path.abspath(os.path.dirname(__file__))
         file_path = os.path.join(os_path, "../meta/" + self.FILE_NSGARMTEMPLATE)
 
         file = open(file_path, "r")
         self.Nsg_Template = file.read()
         return self.Nsg_Template
-    ###
-    #Reads and returns the NSG Rule ARM Template file
+
+
     def getNSGRuleTemplate(self) -> str:
+        """
+        Reads and returns the NSG Rule ARM Template file.
+
+        This method reads the NSG Rule ARM Template file from the relative path "../meta/", 
+        stores its content in the instance variable `self.Nsg_Rule_Template`, and returns the content.
+
+        Returns:
+            str: The content of the NSG Rule ARM Template file.
+        """
         os_path = os.path.abspath(os.path.dirname(__file__))
         file_path = os.path.join(os_path, "../meta/" + self.FILE_NSGRULEARMTEMPLATE)
 
@@ -39,9 +73,21 @@ class ARMWriter:
         self.Nsg_Rule_Template = file.read()
         return self.Nsg_Rule_Template
     
-    ###
-    #Builds and returns a completed the NSG ARM Template
+
     def doBuild_Nsg_Template(self, nsgList:NSGList) -> {}:
+        """
+        Builds the NSG Template by replacing placeholders with actual values.
+
+        This method iterates over the provided NSG list, replacing placeholders in the NSG and NSG Rule templates
+        with actual values for each NSG and its rules. It maintains a dictionary mapping each NSG to its corresponding
+        filled template.
+
+        Args:
+            nsgList (NSGList): A list of NSGs, each with its associated rules.
+
+        Returns:
+            dict: A dictionary mapping each NSG to its corresponding filled template.
+        """
         file_dict = {}
         current_key = ""
 
@@ -89,9 +135,20 @@ class ARMWriter:
         return file_dict
     
 
-    ###
-    # Writes each ARM Template out as an individual file  
+
     def doWrite_ARMTemplate(self, file_dict:defaultdict(list)) -> bool:
+        """
+        Writes the ARM templates to files.
+
+        This method iterates over the provided dictionary, writing each value to a file with the corresponding key as its name.
+        The files are written to the relative path "../output/". If this directory does not exist, it is created.
+
+        Args:
+            file_dict (defaultdict(list)): A dictionary mapping file names to their corresponding ARM templates.
+
+        Returns:
+            bool: True if the operation was successful, False otherwise.
+        """
         os_path = os.path.abspath(os.path.dirname(__file__))
         isDone = True
 
